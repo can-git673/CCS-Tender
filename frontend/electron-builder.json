@@ -1,0 +1,47 @@
+{
+  "appId": "com.chinacomservice.ccstender",
+  "productName": "CCS-Tender",
+  "copyright": "Copyright © 2025 China Comservice",
+  "directories": {
+    "output": "dist-electron",
+    "buildResources": "build"
+  },
+  "files": [
+    "dist/**/*",
+    "electron/**/*",
+    "package.json"
+  ],
+  "win": {
+    "target": [
+      {
+        "target": "nsis",
+        "arch": ["x64"]
+      },
+      {
+        "target": "portable",
+        "arch": ["x64"]
+      }
+    ],
+    "icon": "src/assets/logo.jpg",
+    "artifactName": "${productName}-${version}-Setup.${ext}",
+    "requestedExecutionLevel": "asInvoker"
+  },
+  "nsis": {
+    "oneClick": false,
+    "allowToChangeInstallationDirectory": true,
+    "perMachine": false,
+    "createDesktopShortcut": true,
+    "createStartMenuShortcut": true,
+    "shortcutName": "CCS-Tender",
+    "installerIcon": "src/assets/logo.jpg",
+    "uninstallerIcon": "src/assets/logo.jpg",
+    "installerHeaderIcon": "src/assets/logo.jpg",
+    "deleteAppDataOnUninstall": false
+  },
+  "portable": {
+    "artifactName": "${productName}-${version}-Portable.${ext}"
+  },
+  "extraMetadata": {
+    "main": "electron/main.js"
+  }
+}

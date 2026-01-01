@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CCS-Tender - 招标文件智能分析系统 演示</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+        }
+
+        .header {
+            background: #ffffff;
+            padding: 0 50px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 80px;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .logo {
+            height: 50px;
+            width: 50px;
+            background: #D32F2F;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 20px;
+        }
+
+        .header-title {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .app-name {
+            font-size: 24px;
+            font-weight: bold;
+            color: #D32F2F;
+            margin: 0;
+        }
+
+        .app-subtitle {
+            font-size: 12px;
+            color: #666;
+        }
+
+        .lang-switch {
+            background: #f0f0f0;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+
+        .lang-switch:hover {
+            background: #e0e0e0;
+            transform: translateY(-2px);
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 50px auto;
+            padding: 0 50px;
+        }
+
+        .main-card {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+            padding: 40px;
+            margin-bottom: 30px;
+        }
+
+        .card-title {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .card-title h2 {
+            font-size: 28px;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .card-title .icon {
+            font-size: 32px;
+            color: #D32F2F;
+            margin-right: 10px;
+        }
+
+        .card-title p {
+            color: #666;
+            font-size: 14px;
+        }
+
+        .upload-area {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: 3px dashed rgba(255,255,255,0.5);
+            border-radius: 12px;
+            padding: 60px 40px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-bottom: 30px;
+        }
+
+        .upload-area:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(102, 126, 234, 0.4);
+        }
+
+        .upload-icon {
+            font-size: 48px;
+            color: white;
+            margin-bottom: 20px;
+        }
+
+        .upload-text {
+            color: white;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .upload-hint {
+            color: rgba(255,255,255,0.8);
+            font-size: 14px;
+        }
+
+        .progress-section {
+            background: #f0f2f5;
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 20px;
+        }
+
+        .progress-item {
+            margin-bottom: 20px;
+        }
+
+        .progress-label {
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .progress-bar-container {
+            background: #e0e0e0;
+            height: 24px;
+            border-radius: 12px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #108ee9 0%, #87d068 100%);
+            border-radius: 12px;
+            transition: width 0.5s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            font-size: 12px;
+        }
+
+        .analysis-bar {
+            background: linear-gradient(90deg, #ff6b6b 0%, #4ecdc4 100%);
+        }
+
+        .complete-alert {
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        .alert-content {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .alert-icon {
+            font-size: 32px;
+        }
+
+        .alert-text h3 {
+            margin-bottom: 5px;
+        }
+
+        .download-btn {
+            background: white;
+            color: #11998e;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .download-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+
+        .footer {
+            text-align: center;
+            padding: 30px;
+            background: white;
+            border-top: 1px solid #f0f0f0;
+        }
+
+        .footer-brand {
+            font-size: 16px;
+            font-weight: bold;
+            color: #D32F2F;
+            margin-bottom: 5px;
+        }
+
+        .footer-motto {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        .footer-copyright {
+            color: #999;
+            font-size: 12px;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .analyzing {
+            animation: pulse 2s ease-in-out infinite;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="header-left">
+            <div class="logo">CCS</div>
+            <div class="header-title">
+                <h1 class="app-name">CCS-Tender</h1>
+                <span class="app-subtitle">招标文件智能分析系统</span>
+            </div>
+        </div>
+        <button class="lang-switch" onclick="toggleLanguage()">🌐 English</button>
+    </div>
+
+    <div class="container">
+        <div class="main-card">
+            <div class="card-title">
+                <h2><span class="icon">📄</span>上传招标文件</h2>
+                <p>支持PDF、Word、Excel等多种格式,系统将自动识别语言并进行专业分析</p>
+            </div>
+
+            <div class="upload-area" onclick="simulateUpload()">
+                <div class="upload-icon">📤</div>
+                <div class="upload-text">点击或拖拽文件到此区域上传</div>
+                <div class="upload-hint">支持PDF、DOCX、XLSX等格式,单个文件不超过50MB</div>
+            </div>
+
+            <div class="progress-section" id="progressSection" style="display: none;">
+                <div class="progress-item">
+                    <div class="progress-label">📊 文件上传中...</div>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar" id="uploadProgress" style="width: 0%;">0%</div>
+                    </div>
+                </div>
+
+                <div class="progress-item" id="analysisProgress" style="display: none;">
+                    <div class="progress-label analyzing">🔍 深度分析中...</div>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar analysis-bar" id="analysisBar" style="width: 0%;">0%</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="complete-alert" id="completeAlert" style="display: none;">
+                <div class="alert-content">
+                    <div class="alert-icon">🔔</div>
+                    <div class="alert-text">
+                        <h3>分析完成!</h3>
+                        <p>招标文件已完成深度分析,您可以下载详细的PDF报告</p>
+                    </div>
+                </div>
+                <button class="download-btn" onclick="alert('PDF报告生成功能已集成,实际使用时将下载专业分析报告')">📥 下载PDF报告</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <div class="footer-brand">China Comservice</div>
+        <div class="footer-motto">Build World-Class Networks for the Information Service</div>
+        <div class="footer-copyright">© 2025 CCS-Tender. All rights reserved.</div>
+    </div>
+
+    <script>
+        let currentLang = 'zh';
+
+        function toggleLanguage() {
+            const btn = document.querySelector('.lang-switch');
+            const subtitle = document.querySelector('.app-subtitle');
+            const cardTitle = document.querySelector('.card-title h2');
+            const cardDesc = document.querySelector('.card-title p');
+            const uploadText = document.querySelector('.upload-text');
+            const uploadHint = document.querySelector('.upload-hint');
+
+            if (currentLang === 'zh') {
+                currentLang = 'en';
+                btn.textContent = '🌐 中文';
+                subtitle.textContent = 'Intelligent Tender Document Analysis System';
+                cardTitle.innerHTML = '<span class="icon">📄</span>Upload Tender Document';
+                cardDesc.textContent = 'Supports PDF, Word, Excel and other formats. The system will automatically recognize the language and conduct professional analysis';
+                uploadText.textContent = 'Click or drag file to this area to upload';
+                uploadHint.textContent = 'Supports PDF, DOCX, XLSX formats, single file up to 50MB';
+            } else {
+                currentLang = 'zh';
+                btn.textContent = '🌐 English';
+                subtitle.textContent = '招标文件智能分析系统';
+                cardTitle.innerHTML = '<span class="icon">📄</span>上传招标文件';
+                cardDesc.textContent = '支持PDF、Word、Excel等多种格式,系统将自动识别语言并进行专业分析';
+                uploadText.textContent = '点击或拖拽文件到此区域上传';
+                uploadHint.textContent = '支持PDF、DOCX、XLSX等格式,单个文件不超过50MB';
+            }
+        }
+
+        function simulateUpload() {
+            const progressSection = document.getElementById('progressSection');
+            const uploadProgress = document.getElementById('uploadProgress');
+            const analysisProgress = document.getElementById('analysisProgress');
+            const analysisBar = document.getElementById('analysisBar');
+            const completeAlert = document.getElementById('completeAlert');
+
+            progressSection.style.display = 'block';
+            completeAlert.style.display = 'none';
+
+            let uploadPercent = 0;
+            const uploadInterval = setInterval(() => {
+                uploadPercent += 10;
+                uploadProgress.style.width = uploadPercent + '%';
+                uploadProgress.textContent = uploadPercent + '%';
+
+                if (uploadPercent >= 100) {
+                    clearInterval(uploadInterval);
+                    // 播放提示音(模拟)
+                    console.log('🔔 上传完成提醒!');
+                    
+                    // 开始分析
+                    setTimeout(() => {
+                        analysisProgress.style.display = 'block';
+                        let analysisPercent = 0;
+                        const analysisInterval = setInterval(() => {
+                            analysisPercent += 5;
+                            analysisBar.style.width = analysisPercent + '%';
+                            analysisBar.textContent = analysisPercent + '%';
+
+                            if (analysisPercent >= 100) {
+                                clearInterval(analysisInterval);
+                                // 播放提示音(模拟)
+                                console.log('🔔 分析完成提醒!');
+                                
+                                // 显示完成提示
+                                setTimeout(() => {
+                                    completeAlert.style.display = 'flex';
+                                }, 500);
+                            }
+                        }, 300);
+                    }, 500);
+                }
+            }, 200);
+        }
+    </script>
+</body>
+</html>

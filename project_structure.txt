@@ -1,0 +1,30 @@
+.
+├── DELIVERY_CHECKLIST.md
+├── README.md
+├── USER_MANUAL.md
+├── frontend
+│   ├── README.md
+│   ├── electron
+│   │   └── main.ts
+│   ├── electron-builder.json
+│   ├── eslint.config.js
+│   ├── index.html
+│   ├── package.json
+│   ├── pnpm-lock.yaml
+│   ├── public
+│   │   └── vite.svg
+│   ├── src
+│   │   ├── App.css
+│   │   ├── App.tsx
+│   │   ├── assets
+│   │   ├── i18n.ts
+│   │   ├── index.css
+│   │   ├── main.tsx
+│   │   └── services
+│   ├── tsconfig.app.json
+│   ├── tsconfig.json
+│   ├── tsconfig.node.json
+│   └── vite.config.ts
+└── project_structure.txt
+
+6 directories, 21 files
