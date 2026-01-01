@@ -57,3 +57,20 @@ body {
 .analyzing {
   animation: pulse 2s ease-in-out infinite;
 }
+
+.brand-banner {
+  background: #D32F2F;
+  color: white;
+  padding: 10px 50px;
+  text-align: center;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 1px;
+}
+
+.brand-banner span {
+  opacity: 0.9;
+  font-style: italic;
+  margin-left: 15px;
+  font-weight: 300;
+}

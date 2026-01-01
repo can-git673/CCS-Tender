@@ -99,6 +99,10 @@ function App() {
       }}
     >
       <Layout style={{ minHeight: '100vh', background: 'linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%)' }}>
+        <div className="brand-banner">
+          <strong>China Comservice</strong>
+          <span>Build World-Class Networks for the Information Service</span>
+        </div>
         <Header style={{ 
           background: '#ffffff', 
           padding: '0 50px', 
