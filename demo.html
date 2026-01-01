@@ -5,64 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CCS-Tender - 招标文件智能分析系统 演示</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
             background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
             min-height: 100vh;
+            color: #333;
         }
-
-        .header {
-            background: #ffffff;
-            padding: 0 50px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            height: 80px;
-        }
-
-        .header-left {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-        }
-
-        .logo {
-            height: 50px;
-            width: 50px;
-            background: #D32F2F;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-weight: bold;
-            font-size: 20px;
-        }
-
-        .header-title {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .app-name {
-            font-size: 24px;
-            font-weight: bold;
-            color: #D32F2F;
-            margin: 0;
-        }
-
-        .app-subtitle {
-            font-size: 12px;
-            color: #666;
-        }
-
         .brand-banner {
             background: #D32F2F;
             color: white;
@@ -72,250 +21,91 @@
             font-weight: 500;
             letter-spacing: 1px;
         }
-
         .brand-banner span {
             opacity: 0.9;
             font-style: italic;
             margin-left: 15px;
             font-weight: 300;
         }
-
-        .lang-switch {
-            background: #f0f0f0;
-            border: none;
-            padding: 8px 16px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 14px;
-            transition: all 0.3s;
-        }
-
-        .lang-switch:hover {
-            background: #e0e0e0;
-            transform: translateY(-2px);
-        }
-
-        .container {
-            max-width: 1400px;
-            margin: 50px auto;
+        .header {
+            background: #ffffff;
             padding: 0 50px;
-        }
-
-        .main-card {
-            background: white;
-            border-radius: 16px;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
-            padding: 40px;
-            margin-bottom: 30px;
-        }
-
-        .card-title {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-
-        .card-title h2 {
-            font-size: 28px;
-            color: #333;
-            margin-bottom: 10px;
-        }
-
-        .card-title .icon {
-            font-size: 32px;
-            color: #D32F2F;
-            margin-right: 10px;
-        }
-
-        .card-title p {
-            color: #666;
-            font-size: 14px;
-        }
-
-        .upload-area {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border: 3px dashed rgba(255,255,255,0.5);
-            border-radius: 12px;
-            padding: 60px 40px;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.3s;
-            margin-bottom: 30px;
-        }
-
-        .upload-area:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 12px 40px rgba(102, 126, 234, 0.4);
-        }
-
-        .upload-icon {
-            font-size: 48px;
-            color: white;
-            margin-bottom: 20px;
-        }
-
-        .upload-text {
-            color: white;
-            font-size: 18px;
-            font-weight: bold;
-            margin-bottom: 10px;
-        }
-
-        .upload-hint {
-            color: rgba(255,255,255,0.8);
-            font-size: 14px;
-        }
-
-        .progress-section {
-            background: #f0f2f5;
-            border-radius: 12px;
-            padding: 30px;
-            margin-bottom: 20px;
-        }
-
-        .progress-item {
-            margin-bottom: 20px;
-        }
-
-        .progress-label {
-            font-weight: bold;
-            margin-bottom: 10px;
-            color: #333;
-        }
-
-        .progress-bar-container {
-            background: #e0e0e0;
-            height: 24px;
-            border-radius: 12px;
-            overflow: hidden;
-            position: relative;
-        }
-
-        .progress-bar {
-            height: 100%;
-            background: linear-gradient(90deg, #108ee9 0%, #87d068 100%);
-            border-radius: 12px;
-            transition: width 0.5s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-weight: 600;
-            font-size: 12px;
-        }
-
-        .analysis-bar {
-            background: linear-gradient(90deg, #ff6b6b 0%, #4ecdc4 100%);
-        }
-
-        .complete-alert {
-            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
-            color: white;
-            padding: 20px;
-            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
             display: flex;
             align-items: center;
             justify-content: space-between;
-            margin-top: 20px;
+            height: 80px;
         }
-
-        .alert-content {
-            display: flex;
-            align-items: center;
-            gap: 15px;
+        .header-left { display: flex; align-items: center; gap: 20px; }
+        .logo {
+            height: 50px; width: 50px; background: #D32F2F; border-radius: 8px;
+            display: flex; align-items: center; justify-content: center;
+            color: white; font-weight: bold; font-size: 20px;
         }
-
-        .alert-icon {
-            font-size: 32px;
+        .app-name { font-size: 24px; font-weight: bold; color: #D32F2F; margin: 0; }
+        .app-subtitle { font-size: 12px; color: #666; }
+        .lang-switch {
+            background: #f0f0f0; border: none; padding: 8px 16px; border-radius: 6px;
+            cursor: pointer; font-size: 14px; transition: all 0.3s;
         }
-
-        .alert-text h3 {
-            margin-bottom: 5px;
+        .lang-switch:hover { background: #e0e0e0; transform: translateY(-2px); }
+        .container { max-width: 1000px; margin: 50px auto; padding: 0 20px; }
+        .main-card {
+            background: white; border-radius: 16px; box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+            padding: 40px; text-align: center;
         }
-
+        .card-title h2 { font-size: 28px; margin-bottom: 10px; }
+        .card-title p { color: #666; margin-bottom: 30px; }
+        .upload-area {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: 3px dashed rgba(255,255,255,0.3);
+            border-radius: 12px; padding: 60px 40px; cursor: pointer;
+            transition: all 0.3s; margin-bottom: 30px; position: relative;
+            z-index: 10;
+        }
+        .upload-area:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(102, 126, 234, 0.4); }
+        .upload-icon { font-size: 48px; color: white; margin-bottom: 20px; }
+        .upload-text { color: white; font-size: 18px; font-weight: bold; margin-bottom: 10px; }
+        .upload-hint { color: rgba(255,255,255,0.8); font-size: 14px; }
+        
+        .progress-section { background: #f8f9fa; border-radius: 12px; padding: 25px; margin-top: 20px; display: none; }
+        .progress-item { margin-bottom: 20px; text-align: left; }
+        .progress-label { font-weight: bold; margin-bottom: 8px; display: block; }
+        .progress-bar-container { background: #eee; height: 20px; border-radius: 10px; overflow: hidden; }
+        .progress-bar {
+            height: 100%; width: 0%; color: white; font-size: 12px;
+            display: flex; align-items: center; justify-content: center;
+            transition: width 0.3s ease; font-weight: bold;
+        }
+        .upload-bar { background: linear-gradient(90deg, #108ee9, #87d068); }
+        .analysis-bar { background: linear-gradient(90deg, #ff6b6b, #4ecdc4); }
+        
+        .check-mark {
+            width: 60px; height: 60px; background: #38ef7d; border-radius: 50%;
+            display: none; align-items: center; justify-content: center;
+            color: white; font-size: 30px; margin: 20px auto;
+        }
+        .complete-alert {
+            background: linear-gradient(135deg, #11998e, #38ef7d);
+            color: white; padding: 20px; border-radius: 12px;
+            display: none; align-items: center; justify-content: space-between;
+            text-align: left;
+        }
         .download-btn {
-            background: white;
-            color: #11998e;
-            border: none;
-            padding: 12px 30px;
-            border-radius: 8px;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s;
+            background: white; color: #11998e; border: none; padding: 10px 20px;
+            border-radius: 6px; font-weight: bold; cursor: pointer; transition: 0.3s;
         }
-
-        .download-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-        }
-
-        .footer {
-            text-align: center;
-            padding: 30px;
-            background: white;
-            border-top: 1px solid #f0f0f0;
-        }
-
-        .footer-brand {
-            font-size: 16px;
-            font-weight: bold;
-            color: #D32F2F;
-            margin-bottom: 5px;
-        }
-
-        .footer-motto {
-            color: #666;
-            font-size: 14px;
-            margin-bottom: 10px;
-        }
-
-        .footer-copyright {
-            color: #999;
-            font-size: 12px;
-        }
-
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.5; }
-        }
+        .download-btn:hover { transform: scale(1.05); }
 
         @keyframes success-pop {
-            0% { transform: scale(0.8); opacity: 0; }
-            50% { transform: scale(1.1); }
+            0% { transform: scale(0.5); opacity: 0; }
             100% { transform: scale(1); opacity: 1; }
         }
-
-        @keyframes glow-pulse {
-            0% { box-shadow: 0 0 5px rgba(56, 239, 125, 0.5); }
-            50% { box-shadow: 0 0 20px rgba(56, 239, 125, 0.8); }
-            100% { box-shadow: 0 0 5px rgba(56, 239, 125, 0.5); }
-        }
-
-        .success-animation {
-            animation: success-pop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
-        }
-
-        .glow-effect {
-            animation: glow-pulse 1s ease-in-out infinite;
-        }
-
-        .analyzing {
-            animation: pulse 2s ease-in-out infinite;
-        }
-
-        .check-mark {
-            width: 60px;
-            height: 60px;
-            background: #38ef7d;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 30px;
-            margin: 0 auto 15px;
-            display: none;
-        }
+        .animate-pop { animation: success-pop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
+        .glow { box-shadow: 0 0 15px rgba(56, 239, 125, 0.8); }
+        
+        .footer { text-align: center; padding: 40px; color: #666; font-size: 14px; }
+        .footer strong { color: #D32F2F; display: block; margin-bottom: 5px; }
     </style>
 </head>
 <body>
@@ -326,175 +116,188 @@
     <div class="header">
         <div class="header-left">
             <div class="logo">CCS</div>
-            <div class="header-title">
+            <div>
                 <h1 class="app-name">CCS-Tender</h1>
-                <span class="app-subtitle">招标文件智能分析系统</span>
+                <span class="app-subtitle" id="appSubtitle">招标文件智能分析系统</span>
             </div>
         </div>
-        <button class="lang-switch" onclick="toggleLanguage()">🌐 English</button>
+        <button class="lang-switch" id="langBtn" onclick="toggleLanguage()">🌐 English</button>
     </div>
 
     <div class="container">
         <div class="main-card">
             <div class="card-title">
-                <h2><span class="icon">📄</span>上传招标文件</h2>
-                <p>支持PDF、Word、Excel等多种格式,系统将自动识别语言并进行专业分析</p>
+                <h2 id="cardTitle">📄 上传招标文件</h2>
+                <p id="cardDesc">支持PDF、Word、Excel等多种格式,系统将自动识别语言并进行专业分析</p>
             </div>
 
-            <div class="upload-area" id="uploadArea" onclick="simulateUpload()">
+            <div class="upload-area" id="uploadArea">
                 <div class="upload-icon">📤</div>
-                <div class="upload-text">点击或拖拽文件到此区域上传</div>
-                <div class="upload-hint">支持PDF、DOCX、XLSX等格式,单个文件不超过50MB</div>
+                <div class="upload-text" id="uploadText">点击或拖拽文件到此区域上传</div>
+                <div class="upload-hint" id="uploadHint">支持PDF、DOCX、XLSX等格式,单个文件不超过50MB</div>
             </div>
 
-            <div class="progress-section" id="progressSection" style="display: none;">
+            <div class="progress-section" id="progressSection">
                 <div class="progress-item">
-                    <div class="progress-label">📊 文件上传中...</div>
+                    <span class="progress-label" id="labelUpload">📊 文件上传中...</span>
                     <div class="progress-bar-container">
-                        <div class="progress-bar" id="uploadProgress" style="width: 0%;">0%</div>
+                        <div class="progress-bar upload-bar" id="uploadBar">0%</div>
                     </div>
                 </div>
-
-                <div class="progress-item" id="analysisProgress" style="display: none;">
-                    <div class="progress-label analyzing">🔍 深度分析中...</div>
+                <div class="progress-item" id="analysisItem" style="display: none;">
+                    <span class="progress-label" id="labelAnalysis">🔍 深度分析中...</span>
                     <div class="progress-bar-container">
-                        <div class="progress-bar analysis-bar" id="analysisBar" style="width: 0%;">0%</div>
+                        <div class="progress-bar analysis-bar" id="analysisBar">0%</div>
                     </div>
                 </div>
             </div>
 
-                  <div class="check-mark" id="checkMark">✓</div>
-                <div class="complete-alert" id="completeAlert" style="display: none;">
-                    <div class="alert-icon">🔔</div>
-                    <div class="alert-content">
-                        <div class="alert-title">分析完成!</div>
-                        <div class="alert-desc">招标文件已完成深度分析,您可以下载完整报告。</div>
-                    </div>
-                    <button class="download-btn" onclick="alert('正在生成PDF报告...')">📥 下载PDF报告</button>
-                </div>ton>
+            <div class="check-mark" id="checkMark">✓</div>
+
+            <div class="complete-alert" id="completeAlert">
+                <div>
+                    <strong id="alertTitle" style="display: block; font-size: 18px;">分析完成!</strong>
+                    <span id="alertDesc">招标文件已完成深度分析,您可以下载完整报告。</span>
+                </div>
+                <button class="download-btn" id="downloadBtn" onclick="alert('正在生成PDF报告...')">📥 下载PDF报告</button>
             </div>
         </div>
     </div>
 
     <div class="footer">
-        <div class="footer-brand">China Comservice</div>
-        <div class="footer-motto">Build World-Class Networks for the Information Service</div>
-        <div class="footer-copyright">© 2025 CCS-Tender. All rights reserved.</div>
+        <strong>China Comservice</strong>
+        <p>Build World-Class Networks for the Information Service</p>
+        <p style="font-size: 12px; margin-top: 10px; opacity: 0.7;">© 2025 CCS-Tender. All rights reserved.</p>
     </div>
 
     <script>
         let currentLang = 'zh';
+        const uploadArea = document.getElementById('uploadArea');
+        
+        // 确保点击事件绑定成功
+        uploadArea.addEventListener('click', function() {
+            console.log("Upload area clicked");
+            simulateUpload();
+        });
 
         function toggleLanguage() {
-            const btn = document.querySelector('.lang-switch');
-            const subtitle = document.querySelector('.app-subtitle');
-            const cardTitle = document.querySelector('.card-title h2');
-            const cardDesc = document.querySelector('.card-title p');
-            const uploadText = document.querySelector('.upload-text');
-            const uploadHint = document.querySelector('.upload-hint');
+            const langBtn = document.getElementById('langBtn');
+            const appSubtitle = document.getElementById('appSubtitle');
+            const cardTitle = document.getElementById('cardTitle');
+            const cardDesc = document.getElementById('cardDesc');
+            const uploadText = document.getElementById('uploadText');
+            const uploadHint = document.getElementById('uploadHint');
+            const labelUpload = document.getElementById('labelUpload');
+            const labelAnalysis = document.getElementById('labelAnalysis');
+            const alertTitle = document.getElementById('alertTitle');
+            const alertDesc = document.getElementById('alertDesc');
+            const downloadBtn = document.getElementById('downloadBtn');
 
             if (currentLang === 'zh') {
                 currentLang = 'en';
-                btn.textContent = '🌐 中文';
-                subtitle.textContent = 'Intelligent Tender Document Analysis System';
-                cardTitle.innerHTML = '<span class="icon">📄</span>Upload Tender Document';
+                langBtn.textContent = '🌐 中文';
+                appSubtitle.textContent = 'Intelligent Tender Document Analysis System';
+                cardTitle.textContent = '📄 Upload Tender Document';
                 cardDesc.textContent = 'Supports PDF, Word, Excel and other formats. The system will automatically recognize the language and conduct professional analysis';
                 uploadText.textContent = 'Click or drag file to this area to upload';
                 uploadHint.textContent = 'Supports PDF, DOCX, XLSX formats, single file up to 50MB';
+                labelUpload.textContent = '📊 Uploading File...';
+                labelAnalysis.textContent = '🔍 Deep Analyzing...';
+                alertTitle.textContent = 'Analysis Complete!';
+                alertDesc.textContent = 'The tender document has been deeply analyzed. You can download the report.';
+                downloadBtn.textContent = '📥 Download PDF Report';
             } else {
                 currentLang = 'zh';
-                btn.textContent = '🌐 English';
-                subtitle.textContent = '招标文件智能分析系统';
-                cardTitle.innerHTML = '<span class="icon">📄</span>上传招标文件';
+                langBtn.textContent = '🌐 English';
+                appSubtitle.textContent = '招标文件智能分析系统';
+                cardTitle.textContent = '📄 上传招标文件';
                 cardDesc.textContent = '支持PDF、Word、Excel等多种格式,系统将自动识别语言并进行专业分析';
                 uploadText.textContent = '点击或拖拽文件到此区域上传';
                 uploadHint.textContent = '支持PDF、DOCX、XLSX等格式,单个文件不超过50MB';
+                labelUpload.textContent = '📊 文件上传中...';
+                labelAnalysis.textContent = '🔍 深度分析中...';
+                alertTitle.textContent = '分析完成!';
+                alertDesc.textContent = '招标文件已完成深度分析,您可以下载完整报告。';
+                downloadBtn.textContent = '📥 下载PDF报告';
             }
         }
 
         function simulateUpload() {
-            const uploadArea = document.getElementById('uploadArea');
             const progressSection = document.getElementById('progressSection');
-            const uploadProgress = document.getElementById('uploadProgress');
-            const analysisProgress = document.getElementById('analysisProgress');
+            const uploadBar = document.getElementById('uploadBar');
+            const analysisItem = document.getElementById('analysisItem');
             const analysisBar = document.getElementById('analysisBar');
+            const checkMark = document.getElementById('checkMark');
             const completeAlert = document.getElementById('completeAlert');
 
-            // 重置状态
-            uploadProgress.style.width = '0%';
-            uploadProgress.textContent = '0%';
+            // 重置
+            progressSection.style.display = 'block';
+            uploadBar.style.width = '0%';
+            uploadBar.textContent = '0%';
+            uploadBar.classList.remove('glow');
+            analysisItem.style.display = 'none';
             analysisBar.style.width = '0%';
             analysisBar.textContent = '0%';
-            analysisProgress.style.display = 'none';
+            analysisBar.classList.remove('glow');
+            checkMark.style.display = 'none';
             completeAlert.style.display = 'none';
-            
-            // 显示进度区域
-            progressSection.style.display = 'block';
-            uploadArea.style.opacity = '0.5';
             uploadArea.style.pointerEvents = 'none';
+            uploadArea.style.opacity = '0.6';
 
-            let uploadPercent = 0;
-            const uploadInterval = setInterval(() => {
-                uploadPercent += 10;
-                uploadProgress.style.width = uploadPercent + '%';
-                uploadProgress.textContent = uploadPercent + '%';
-
-                if (uploadPercent >= 100) {
-                    clearInterval(uploadInterval);
-                    uploadProgress.classList.add('glow-effect');
-                    // 模拟上传完成提醒
+            let up = 0;
+            const upInt = setInterval(() => {
+                up += 10;
+                uploadBar.style.width = up + '%';
+                uploadBar.textContent = up + '%';
+                if (up >= 100) {
+                    clearInterval(upInt);
+                    uploadBar.classList.add('glow');
                     playAlarm();
                     
                     // 开始分析
                     setTimeout(() => {
-                        analysisProgress.style.display = 'block';
-                        let analysisPercent = 0;
-                        const analysisInterval = setInterval(() => {
-                            analysisPercent += 5;
-                            analysisBar.style.width = analysisPercent + '%';
-                            analysisBar.textContent = analysisPercent + '%';
-
-                            if (analysisPercent >= 100) {
-                                clearInterval(analysisInterval);
-                                analysisBar.classList.add('glow-effect');
-                                // 模拟分析完成提醒
+                        analysisItem.style.display = 'block';
+                        let an = 0;
+                        const anInt = setInterval(() => {
+                            an += 5;
+                            analysisBar.style.width = an + '%';
+                            analysisBar.textContent = an + '%';
+                            if (an >= 100) {
+                                clearInterval(anInt);
+                                analysisBar.classList.add('glow');
                                 playAlarm();
                                 
-                                // 显示完成提示
+                                // 成功动画
                                 setTimeout(() => {
-                                    const checkMark = document.getElementById('checkMark');
                                     checkMark.style.display = 'flex';
-                                    checkMark.classList.add('success-animation');
-                                    
+                                    checkMark.classList.add('animate-pop');
                                     setTimeout(() => {
                                         completeAlert.style.display = 'flex';
-                                        completeAlert.classList.add('success-animation');
-                                        uploadArea.style.opacity = '1';
+                                        completeAlert.classList.add('animate-pop');
                                         uploadArea.style.pointerEvents = 'auto';
+                                        uploadArea.style.opacity = '1';
                                     }, 600);
                                 }, 500);
                             }
-                        }, 300);
-                    }, 500);
+                        }, 200);
+                    }, 800);
                 }
-            }, 200);
+            }, 150);
         }
 
         function playAlarm() {
             try {
-                const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-                const oscillator = audioCtx.createOscillator();
-                const gainNode = audioCtx.createGain();
-                oscillator.connect(gainNode);
-                gainNode.connect(audioCtx.destination);
-                oscillator.type = 'sine';
-                oscillator.frequency.setValueAtTime(880, audioCtx.currentTime);
-                gainNode.gain.setValueAtTime(0.1, audioCtx.currentTime);
-                oscillator.start();
-                oscillator.stop(audioCtx.currentTime + 0.5);
-            } catch (e) {
-                console.log("Audio alarm played");
-            }
+                const ctx = new (window.AudioContext || window.webkitAudioContext)();
+                const osc = ctx.createOscillator();
+                const gain = ctx.createGain();
+                osc.connect(gain);
+                gain.connect(ctx.destination);
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(880, ctx.currentTime);
+                gain.gain.setValueAtTime(0.1, ctx.currentTime);
+                osc.start();
+                osc.stop(ctx.currentTime + 0.5);
+            } catch (e) {}
         }
     </script>
 </body>
