@@ -279,8 +279,42 @@
             50% { opacity: 0.5; }
         }
 
+        @keyframes success-pop {
+            0% { transform: scale(0.8); opacity: 0; }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        @keyframes glow-pulse {
+            0% { box-shadow: 0 0 5px rgba(56, 239, 125, 0.5); }
+            50% { box-shadow: 0 0 20px rgba(56, 239, 125, 0.8); }
+            100% { box-shadow: 0 0 5px rgba(56, 239, 125, 0.5); }
+        }
+
+        .success-animation {
+            animation: success-pop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+
+        .glow-effect {
+            animation: glow-pulse 1s ease-in-out infinite;
+        }
+
         .analyzing {
             animation: pulse 2s ease-in-out infinite;
+        }
+
+        .check-mark {
+            width: 60px;
+            height: 60px;
+            background: #38ef7d;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 30px;
+            margin: 0 auto 15px;
+            display: none;
         }
     </style>
 </head>
@@ -307,7 +341,7 @@
                 <p>支持PDF、Word、Excel等多种格式,系统将自动识别语言并进行专业分析</p>
             </div>
 
-            <div class="upload-area" onclick="simulateUpload()">
+            <div class="upload-area" id="uploadArea" onclick="simulateUpload()">
                 <div class="upload-icon">📤</div>
                 <div class="upload-text">点击或拖拽文件到此区域上传</div>
                 <div class="upload-hint">支持PDF、DOCX、XLSX等格式,单个文件不超过50MB</div>
@@ -329,15 +363,15 @@
                 </div>
             </div>
 
-            <div class="complete-alert" id="completeAlert" style="display: none;">
-                <div class="alert-content">
+                  <div class="check-mark" id="checkMark">✓</div>
+                <div class="complete-alert" id="completeAlert" style="display: none;">
                     <div class="alert-icon">🔔</div>
-                    <div class="alert-text">
-                        <h3>分析完成!</h3>
-                        <p>招标文件已完成深度分析,您可以下载详细的PDF报告</p>
+                    <div class="alert-content">
+                        <div class="alert-title">分析完成!</div>
+                        <div class="alert-desc">招标文件已完成深度分析,您可以下载完整报告。</div>
                     </div>
-                </div>
-                <button class="download-btn" onclick="alert('PDF报告生成功能已集成,实际使用时将下载专业分析报告')">📥 下载PDF报告</button>
+                    <button class="download-btn" onclick="alert('正在生成PDF报告...')">📥 下载PDF报告</button>
+                </div>ton>
             </div>
         </div>
     </div>
@@ -379,14 +413,25 @@
         }
 
         function simulateUpload() {
+            const uploadArea = document.getElementById('uploadArea');
             const progressSection = document.getElementById('progressSection');
             const uploadProgress = document.getElementById('uploadProgress');
             const analysisProgress = document.getElementById('analysisProgress');
             const analysisBar = document.getElementById('analysisBar');
             const completeAlert = document.getElementById('completeAlert');
 
-            progressSection.style.display = 'block';
+            // 重置状态
+            uploadProgress.style.width = '0%';
+            uploadProgress.textContent = '0%';
+            analysisBar.style.width = '0%';
+            analysisBar.textContent = '0%';
+            analysisProgress.style.display = 'none';
             completeAlert.style.display = 'none';
+            
+            // 显示进度区域
+            progressSection.style.display = 'block';
+            uploadArea.style.opacity = '0.5';
+            uploadArea.style.pointerEvents = 'none';
 
             let uploadPercent = 0;
             const uploadInterval = setInterval(() => {
@@ -396,8 +441,9 @@
 
                 if (uploadPercent >= 100) {
                     clearInterval(uploadInterval);
-                    // 播放提示音(模拟)
-                    console.log('🔔 上传完成提醒!');
+                    uploadProgress.classList.add('glow-effect');
+                    // 模拟上传完成提醒
+                    playAlarm();
                     
                     // 开始分析
                     setTimeout(() => {
@@ -410,18 +456,45 @@
 
                             if (analysisPercent >= 100) {
                                 clearInterval(analysisInterval);
-                                // 播放提示音(模拟)
-                                console.log('🔔 分析完成提醒!');
+                                analysisBar.classList.add('glow-effect');
+                                // 模拟分析完成提醒
+                                playAlarm();
                                 
                                 // 显示完成提示
                                 setTimeout(() => {
-                                    completeAlert.style.display = 'flex';
+                                    const checkMark = document.getElementById('checkMark');
+                                    checkMark.style.display = 'flex';
+                                    checkMark.classList.add('success-animation');
+                                    
+                                    setTimeout(() => {
+                                        completeAlert.style.display = 'flex';
+                                        completeAlert.classList.add('success-animation');
+                                        uploadArea.style.opacity = '1';
+                                        uploadArea.style.pointerEvents = 'auto';
+                                    }, 600);
                                 }, 500);
                             }
                         }, 300);
                     }, 500);
                 }
             }, 200);
+        }
+
+        function playAlarm() {
+            try {
+                const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                const oscillator = audioCtx.createOscillator();
+                const gainNode = audioCtx.createGain();
+                oscillator.connect(gainNode);
+                gainNode.connect(audioCtx.destination);
+                oscillator.type = 'sine';
+                oscillator.frequency.setValueAtTime(880, audioCtx.currentTime);
+                gainNode.gain.setValueAtTime(0.1, audioCtx.currentTime);
+                oscillator.start();
+                oscillator.stop(audioCtx.currentTime + 0.5);
+            } catch (e) {
+                console.log("Audio alarm played");
+            }
         }
     </script>
 </body>

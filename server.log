@@ -8,3 +8,16 @@ nohup: ignoring input
 10.70.207.1 - - [01/Jan/2026 09:59:20] "HEAD /demo.html HTTP/1.1" 200 -
 10.70.207.1 - - [01/Jan/2026 09:59:20] "GET /demo.html HTTP/1.1" 200 -
 10.70.207.1 - - [01/Jan/2026 09:59:20] "GET /demo.html HTTP/1.1" 200 -
+10.70.207.1 - - [01/Jan/2026 10:00:36] "HEAD /demo.html HTTP/1.1" 200 -
+10.70.207.1 - - [01/Jan/2026 10:00:36] "GET /demo.html HTTP/1.1" 200 -
+10.70.207.1 - - [01/Jan/2026 10:00:36] "GET /demo.html HTTP/1.1" 200 -
+10.70.207.1 - - [01/Jan/2026 10:00:43] "GET /demo.html HTTP/1.1" 200 -
+10.70.207.1 - - [01/Jan/2026 10:00:44] code 404, message File not found
+10.70.207.1 - - [01/Jan/2026 10:00:44] "GET /favicon.ico HTTP/1.1" 404 -
+10.70.207.1 - - [01/Jan/2026 10:02:12] "HEAD /demo.html HTTP/1.1" 200 -
+10.70.207.1 - - [01/Jan/2026 10:02:12] "GET /demo.html HTTP/1.1" 200 -
+10.70.207.1 - - [01/Jan/2026 10:02:12] "GET /demo.html HTTP/1.1" 200 -
+10.70.207.1 - - [01/Jan/2026 10:02:33] "HEAD /demo.html HTTP/1.1" 200 -
+10.70.207.1 - - [01/Jan/2026 10:02:33] "GET /demo.html HTTP/1.1" 200 -
+10.70.207.1 - - [01/Jan/2026 10:02:33] "GET /demo.html HTTP/1.1" 200 -
+10.70.207.1 - - [01/Jan/2026 10:02:41] "GET /demo.html HTTP/1.1" 200 -
